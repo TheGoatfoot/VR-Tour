@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <title>VR Tour</title>
+</head>
+
+<body>
+    <a-scene vr-mode-ui="enabled: false" shadow="type: pcf" cursor="rayOrigin: mouse">
+        <a-assets>
+            <a-asset-item id="kidar" src="/assets/kidar.glb"></a-asset-item>
+        </a-assets>
+        <a-entity id="camera" position="0 2 4">
+            <a-entity camera look-controls></a-entity>
+        </a-entity>
+        <a-entity id="model" position="0 .5 0" scale=".5 .5 .5" gltf-model="#kidar" shadow="cast: true; receive: true">
+        </a-entity>
+        <a-cylinder height="1" radius="1" color="white" shadow="cast: true; receive: true"></a-cylinder>
+        <a-plane position="0 0 0" rotation="-90 0 0" width="1000" height="1000" color="white"
+            shadow="cast: true; receive: true"></a-plane>
+        <a-entity light="type: directional; castShadow: true; intensity: 0.6;" position="2 2 2" target="#model">
+        </a-entity>
+        <a-entity light="type: directional; castShadow: true; intensity: 0.6;" position="-2 2 2" target="#model">
+        </a-entity>
+        <a-entity light="type: directional; castShadow: true; intensity: 0.6;" position="0 2 2" target="#model">
+        </a-entity>
+        <a-sphere id="south" radius=".5" position="0 2 4" color="cyan" shadow="cast: false; receive: false"></a-sphere>
+        <a-sphere id="east" radius=".5" position="4 2 0" color="cyan" shadow="cast: false; receive: false"></a-sphere>
+        <a-sphere id="north" radius=".5" position="0 2 -4" color="cyan" shadow="cast: false; receive: false"></a-sphere>
+        <a-sphere id="west" radius=".5" position="-4 2 0" color="cyan" shadow="cast: false; receive: false"></a-sphere>
+        <a-sky color="white"></a-sky>
+    </a-scene>
+    <script>
+        let camera = document.getElementById('camera')
+        document.getElementById('south').addEventListener('click', () => {
+            camera.setAttribute('position', '0 2 4')
+            camera.setAttribute('rotation', '0 0 0')
+        })
+        document.getElementById('east').addEventListener('click', () => {
+            camera.setAttribute('position', '4 2 0')
+            camera.setAttribute('rotation', '0 90 0')
+        })
+        document.getElementById('north').addEventListener('click', () => {
+            camera.setAttribute('position', '0 2 -4')
+            camera.setAttribute('rotation', '0 180 0')
+        })
+        document.getElementById('west').addEventListener('click', () => {
+            camera.setAttribute('position', '-4 2 0')
+            camera.setAttribute('rotation', '0 270 0')
+        })
+    </script>
+</body>
+
+</html>
